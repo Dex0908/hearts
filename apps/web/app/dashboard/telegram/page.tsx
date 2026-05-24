@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-
+export const dynamic = 'force-dynamic';
 export default function TelegramLinkPage() {
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);

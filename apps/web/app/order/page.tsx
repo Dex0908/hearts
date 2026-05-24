@@ -10,7 +10,7 @@ import {
   type ContactMethod,
   CONTACT_LABELS,
 } from '@skyhearts/shared';
-
+export const dynamic = 'force-dynamic';
 export default function OrderPage() {
   const router = useRouter();
   const searchParams = useSearchParams();

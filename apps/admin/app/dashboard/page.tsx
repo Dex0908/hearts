@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import type { Order, OrderStatus, AdminStats } from '@skyhearts/shared';
-
+export const dynamic = 'force-dynamic';
 const STATUS_COLORS: Record<OrderStatus, string> = {
   PENDING:     'bg-yellow-500/15 text-yellow-400 border-yellow-500/30',
   CONFIRMED:   'bg-blue-500/15 text-blue-400 border-blue-500/30',
