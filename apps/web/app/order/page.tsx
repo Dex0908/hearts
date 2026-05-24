@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
@@ -10,8 +10,10 @@ import {
   type ContactMethod,
   CONTACT_LABELS,
 } from '@skyhearts/shared';
+
 export const dynamic = 'force-dynamic';
-export default function OrderPage() {
+
+function OrderForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialHearts = Number(searchParams.get('hearts')) || 50;
@@ -181,5 +183,13 @@ export default function OrderPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function OrderPage() {
+  return (
+    <Suspense>
+      <OrderForm />
+    </Suspense>
   );
 }

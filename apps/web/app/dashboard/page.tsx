@@ -3,7 +3,9 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { calculateRemainingETA, type Order, type OrderStatus } from '@skyhearts/shared';
+
 export const dynamic = 'force-dynamic';
+
 const STATUS_CONFIG: Record<OrderStatus, { label: string; color: string; icon: string }> = {
   PENDING:     { label: 'Pending',     color: 'text-yellow-400 bg-yellow-400/10',    icon: '⏳' },
   CONFIRMED:   { label: 'Confirmed',   color: 'text-blue-400 bg-blue-400/10',        icon: '✅' },
