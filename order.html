@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkyHearts — Order</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.page-wrap{padding-top:70px;padding-bottom:4rem}
+.order-section{max-width:600px;margin:0 auto;padding:2rem 1.5rem}
+.form-group{margin-bottom:1.2rem}
+.form-label{display:block;font-size:0.8rem;color:var(--muted);margin-bottom:0.4rem;letter-spacing:0.05em;text-transform:uppercase}
+.form-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--glassborder);border-radius:10px;padding:0.75rem 1rem;color:var(--text);font-size:0.9rem;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s}
+.form-input:focus{border-color:rgba(245,200,66,0.4)}
+select.form-input option{background:#0d1529;color:var(--text)}
+.selected-pkg{background:rgba(245,200,66,0.08);border:1px solid rgba(245,200,66,0.3);border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem}
+.eta-info{background:rgba(126,179,255,0.06);border:1px solid rgba(126,179,255,0.15);border-radius:10px;padding:0.8rem 1rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;color:var(--accent)}
+.trust-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1.2rem}
+.trust-badge{display:flex;align-items:center;gap:0.4rem;font-size:0.78rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+
+<nav>
+  <a class="logo" href="index.html"><span class="candle">🕯️</span> SkyHearts</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+    <li><a href="pricing.html" data-i18n="nav_pricing">Pricing</a></li>
+    <li><a href="dashboard.html" data-i18n="nav_dashboard">Dashboard</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-lang">
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="ru">RU</button>
+    </div>
+    <a class="nav-btn" href="order.html" data-i18n="nav_order">Order Now</a>
+    <button class="nav-hamburger" id="hamburger">☰</button>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="order-section">
+    <div style="margin-bottom:2rem">
+      <div class="section-title" style="text-align:left;font-size:1.3rem" data-i18n="order_title">Place Your Order</div>
+      <div style="color:var(--muted);font-size:0.85rem;margin-top:0.3rem" data-i18n="order_sub">Fill in your details below to begin your ascension</div>
+    </div>
+
+    <div class="selected-pkg" id="selected-pkg-display">
+      <div>
+        <div style="font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em" data-i18n="selected_pkg">Selected Package</div>
+        <div style="font-size:1.1rem;font-weight:600;color:var(--gold);margin-top:0.2rem" id="pkg-hearts-label">— ❤️</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:1.2rem;font-weight:600;color:var(--text)" id="pkg-price-label">$0.00</div>
+        <a class="btn-secondary btn-sm" href="pricing.html" style="margin-top:0.3rem" data-i18n="change">Change</a>
+      </div>
+    </div>
+
+    <div class="eta-info" id="eta-display">
+      ⏱ <span id="eta-text" data-i18n="select_eta">Select a package to see estimated delivery</span>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" data-i18n="label_nickname">Sky Nickname</label>
+      <input class="form-input" type="text" data-i18n-ph="ph_nickname" placeholder="Your in-game name" id="f-nickname">
+    </div>
+    <div class="form-group">
+      <label class="form-label" data-i18n="label_code">Sky Friendship Code</label>
+      <input class="form-input" type="text" data-i18n-ph="ph_code" placeholder="e.g. SKY-ABCD-1234">
+    </div>
+    <div class="form-group">
+      <label class="form-label" data-i18n="label_contact">Preferred Contact Method</label>
+      <select class="form-input">
+        <option>Telegram</option>
+        <option>Discord</option>
+        <option>Instagram</option>
+        <option>TikTok</option>
+        <option>X / Twitter</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label" data-i18n="label_username">Contact Username / Link</label>
+      <input class="form-input" type="text" data-i18n-ph="ph_username" placeholder="@username or profile link">
+    </div>
+    <div class="form-group">
+      <label class="form-label" data-i18n="label_email">Email (for order tracking)</label>
+      <input class="form-input" type="email" placeholder="your@email.com">
+    </div>
+
+    <button class="btn-primary" style="width:100%;margin-top:1rem;font-size:1rem;padding:1rem" onclick="placeOrder()" data-i18n="btn_place">
+      🌟 Place Order & Proceed to Payment
+    </button>
+    <p style="text-align:center;color:var(--muted);font-size:0.75rem;margin-top:0.8rem" data-i18n="order_note">Secure payment • Order tracked • Telegram updates</p>
+
+    <div class="trust-row">
+      <div class="trust-badge">🔒 Secure</div>
+      <div class="trust-badge">📊 Tracked</div>
+      <div class="trust-badge">📱 Telegram</div>
+      <div class="trust-badge">⚡ Fast</div>
+    </div>
+  </div>
+</div>
+
+<script src="main.js"></script>
+<script>
+  // Package data
+  const PACKAGES = {
+    20:  {hearts:20,  price:0.99, eta:3},
+    30:  {hearts:30,  price:1.29, eta:3},
+    50:  {hearts:50,  price:1.99, eta:3},
+    100: {hearts:100, price:3.79, eta:4},
+    150: {hearts:150, price:5.49, eta:5},
+    250: {hearts:250, price:8.49, eta:7},
+  };
+
+  function applyPkg(pkg) {
+    if (!pkg) return;
+    document.getElementById('pkg-hearts-label').textContent = pkg.hearts + ' ❤️ Hearts';
+    document.getElementById('pkg-price-label').textContent  = '$' + pkg.price.toFixed(2);
+    const etaEl = document.getElementById('eta-text');
+    const etaEn = 'Estimated delivery: ~' + pkg.eta + ' days after payment confirmation';
+    const etaRu = 'Примерная доставка: ~' + pkg.eta + ' дня после подтверждения оплаты';
+    window._currentEtaText = {en: etaEn, ru: etaRu};
+    etaEl.textContent = currentLang === 'ru' ? etaRu : etaEn;
+  }
+
+  function placeOrder() {
+    const nick = document.getElementById('f-nickname').value;
+    const pkgKey = new URLSearchParams(location.search).get('pkg');
+    if (!pkgKey || !PACKAGES[pkgKey]) {
+      alert(currentLang === 'ru' ? 'Пожалуйста, выберите пакет!' : 'Please select a package first!');
+      location.href = 'pricing.html'; return;
+    }
+    if (!nick.trim()) {
+      alert(currentLang === 'ru' ? 'Введите ваш никнейм в Sky' : 'Please enter your Sky nickname');
+      return;
+    }
+    location.href = 'dashboard.html';
+  }
+
+  initStars();
+  initMobileNav();
+  initLang();
+
+  // Apply package from URL on load
+  const pkgKey = new URLSearchParams(location.search).get('pkg');
+  if (pkgKey && PACKAGES[pkgKey]) applyPkg(PACKAGES[pkgKey]);
+</script>
+</body>
+</html>

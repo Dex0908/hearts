@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkyHearts — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.page-wrap{padding-top:70px;padding-bottom:4rem}
+.dash-header{padding:2rem 1.5rem 1rem;background:linear-gradient(180deg,rgba(20,40,100,0.3),transparent)}
+.dash-title{font-family:'Cinzel',serif;font-size:1.4rem;color:var(--gold)}
+.dash-sub{color:var(--muted);font-size:0.85rem;margin-top:0.2rem}
+.dash-content{max-width:700px;margin:0 auto;padding:0 1.5rem}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}
+.dash-card{background:var(--glass);border:1px solid var(--glassborder);border-radius:14px;padding:1.2rem}
+.dash-card-label{font-size:0.7rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.5rem}
+.dash-card-val{font-size:1.5rem;font-weight:600;color:var(--text)}
+.dash-card-val.gold{color:var(--gold)}
+.dash-card-val.green{color:var(--green)}
+.notif-banner{background:rgba(78,204,163,0.08);border:1px solid rgba(78,204,163,0.2);border-radius:12px;padding:0.8rem 1rem;margin-bottom:1rem;font-size:0.82rem;color:var(--green);display:flex;align-items:center;gap:0.5rem}
+.tg-card{background:linear-gradient(135deg,rgba(0,136,204,0.1),rgba(0,136,204,0.03));border:1px solid rgba(0,136,204,0.2);border-radius:14px;padding:1.2rem;margin-bottom:1rem;display:flex;align-items:center;gap:1rem}
+.tg-icon{width:40px;height:40px;background:rgba(0,136,204,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.tg-text{flex:1}
+.tg-title-text{font-size:0.9rem;font-weight:500;margin-bottom:0.2rem}
+.tg-sub-text{font-size:0.75rem;color:var(--muted)}
+.btn-tg{background:linear-gradient(135deg,#0088cc,#006fa0);color:white;border:none;padding:0.5rem 1rem;border-radius:50px;font-size:0.78rem;font-weight:500;cursor:pointer;flex-shrink:0}
+.progress-container{margin-bottom:1.5rem}
+.progress-label{display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:0.5rem}
+.progress-bar{height:8px;background:rgba(255,255,255,0.08);border-radius:50px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--blue2),var(--gold));border-radius:50px;transition:width 1s cubic-bezier(0.4,0,0.2,1);position:relative;width:0}
+.progress-fill::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:12px;height:12px;background:var(--gold);border-radius:50%;box-shadow:0 0 10px var(--gold)}
+.order-card{background:var(--glass);border:1px solid var(--glassborder);border-radius:14px;padding:1.2rem;margin-bottom:1rem}
+.timeline{position:relative;padding-left:1.5rem}
+.timeline::before{content:'';position:absolute;left:5px;top:5px;bottom:5px;width:2px;background:linear-gradient(180deg,var(--gold),rgba(245,200,66,0.1))}
+.timeline-item{position:relative;margin-bottom:1.2rem}
+.timeline-dot{position:absolute;left:-1.5rem;top:2px;width:12px;height:12px;border-radius:50%;border:2px solid var(--gold);background:var(--sky)}
+.timeline-dot.filled{background:var(--gold)}
+.timeline-text{font-size:0.82rem;color:var(--text)}
+.timeline-time{font-size:0.72rem;color:var(--muted);margin-top:0.2rem}
+.login-prompt{text-align:center;padding:4rem 2rem;max-width:400px;margin:0 auto}
+.login-prompt h2{font-family:'Cinzel',serif;color:var(--gold);margin-bottom:1rem;font-size:1.3rem}
+.login-prompt p{color:var(--muted);font-size:0.9rem;margin-bottom:2rem;line-height:1.6}
+.order-id-input{display:flex;gap:0.8rem;margin-top:1rem;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+
+<nav>
+  <a class="logo" href="index.html"><span class="candle">🕯️</span> SkyHearts</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+    <li><a href="pricing.html" data-i18n="nav_pricing">Pricing</a></li>
+    <li><a href="dashboard.html" class="active" data-i18n="nav_dashboard">Dashboard</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-lang">
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="ru">RU</button>
+    </div>
+    <a class="nav-btn" href="order.html" data-i18n="nav_order">Order Now</a>
+    <button class="nav-hamburger" id="hamburger">☰</button>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- DEMO DASHBOARD (shown by default) -->
+  <div id="demo-dash">
+    <div class="dash-header">
+      <div class="dash-title" data-i18n="dash_title">✨ Your Dashboard</div>
+      <div class="dash-sub" data-i18n="dash_sub">Welcome back, StarChild_77 • Order #SKH-4821</div>
+    </div>
+    <div class="dash-content">
+
+      <div class="notif-banner" data-i18n="notif">✅ Progress update: 40 hearts delivered today!</div>
+
+      <div class="tg-card">
+        <div class="tg-icon">📱</div>
+        <div class="tg-text">
+          <div class="tg-title-text" data-i18n="tg_title">Connect Telegram</div>
+          <div class="tg-sub-text" data-i18n="tg_sub">Get instant delivery notifications via @SkyHeartsBot</div>
+        </div>
+        <button class="btn-tg" data-i18n="tg_btn">Connect</button>
+      </div>
+
+      <div class="dash-grid">
+        <div class="dash-card"><div class="dash-card-label" data-i18n="label_ordered">Hearts Ordered</div><div class="dash-card-val gold">150 ❤️</div></div>
+        <div class="dash-card"><div class="dash-card-label" data-i18n="label_delivered">Delivered</div><div class="dash-card-val green">40 ❤️</div></div>
+        <div class="dash-card"><div class="dash-card-label" data-i18n="label_remaining">Remaining</div><div class="dash-card-val">110 ❤️</div></div>
+        <div class="dash-card"><div class="dash-card-label" data-i18n="label_eta">ETA</div><div class="dash-card-val" style="font-size:1rem" data-i18n="eta_val">3 days left</div></div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-label">
+          <span style="font-size:0.82rem" data-i18n="progress_label">Delivery Progress</span>
+          <span style="font-size:0.82rem;color:var(--gold)">40 / 150 ❤️</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="client-prog"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--muted);margin-top:0.4rem">
+          <span>26% complete</span><span>~74% remaining</span>
+        </div>
+      </div>
+
+      <div class="order-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem">
+          <div style="font-size:0.9rem;font-weight:500">Order #SKH-4821</div>
+          <span class="order-status status-progress"><span class="status-dot"></span>In Progress</span>
+        </div>
+        <div style="font-size:0.8rem;color:var(--muted);margin-bottom:0.8rem">Package: 150 ❤️ · $5.49 · Paid ✓</div>
+        <div class="timeline">
+          <div class="timeline-item"><div class="timeline-dot filled"></div><div class="timeline-text">Order placed & confirmed</div><div class="timeline-time">May 20, 2025</div></div>
+          <div class="timeline-item"><div class="timeline-dot filled"></div><div class="timeline-text">Payment verified</div><div class="timeline-time">May 20, 2025</div></div>
+          <div class="timeline-item"><div class="timeline-dot filled"></div><div class="timeline-text">Delivery started — 40 hearts sent</div><div class="timeline-time">May 21, 2025</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text" style="color:var(--muted)">Delivery continues...</div><div class="timeline-time">Expected May 24</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text" style="color:var(--muted)">Order completed</div><div class="timeline-time">Expected May 25</div></div>
+        </div>
+      </div>
+
+      <div class="order-card" style="opacity:0.6">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-size:0.9rem;font-weight:500">Order #SKH-3201</div>
+          <span class="order-status status-completed"><span class="status-dot"></span>Completed</span>
+        </div>
+        <div style="font-size:0.8rem;color:var(--muted);margin-top:0.4rem">100 ❤️ · $3.79 · Delivered April 12</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script src="main.js"></script>
+<script>
+  initStars();
+  initMobileNav();
+  initLang();
+  setTimeout(() => {
+    const p = document.getElementById('client-prog');
+    if (p) p.style.width = '26%';
+  }, 300);
+</script>
+</body>
+</html>

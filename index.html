@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkyHearts — Heart Gifting for Sky</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ---- LANDING SPECIFIC ---- */
+.page-wrap{padding-top:70px}
+.hero{position:relative;min-height:calc(100vh - 70px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(20,40,100,0.6),transparent),radial-gradient(ellipse 60% 40% at 50% 80%,rgba(245,200,66,0.06),transparent);z-index:0}
+.hero-content{position:relative;z-index:1}
+.hero-badge{display:inline-block;background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.3);color:var(--gold);padding:0.3rem 1rem;border-radius:50px;font-size:0.75rem;letter-spacing:0.1em;margin-bottom:1.5rem;text-transform:uppercase}
+.hero h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:700;line-height:1.1;margin-bottom:1rem;background:linear-gradient(180deg,#fff 0%,var(--gold3) 50%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:1.1rem;color:var(--muted);max-width:500px;margin:0 auto 2.5rem;line-height:1.7}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.hero-stats{display:flex;gap:3rem;justify-content:center;margin-top:4rem;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{font-family:'Cinzel',serif;font-size:2rem;color:var(--gold);font-weight:600}
+.stat-label{font-size:0.75rem;color:var(--muted);letter-spacing:0.08em;margin-top:0.2rem}
+
+/* Preview pricing grid */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem}
+.price-card{background:var(--glass);border:1px solid var(--glassborder);border-radius:16px;padding:1.5rem 1rem;text-align:center;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;text-decoration:none;display:block}
+.price-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,200,66,0.05),transparent);opacity:0;transition:opacity 0.3s}
+.price-card:hover::before,.price-card.featured::before{opacity:1}
+.price-card:hover,.price-card.featured{border-color:rgba(245,200,66,0.5);transform:translateY(-3px);box-shadow:0 8px 40px rgba(245,200,66,0.15)}
+.price-badge{position:absolute;top:0;right:0;background:var(--gold);color:#1a0e00;font-size:0.6rem;font-weight:700;padding:0.3rem 0.6rem;border-radius:0 16px 0 8px;letter-spacing:0.05em;text-transform:uppercase}
+.hearts-amount{font-size:2rem;font-weight:600;color:var(--gold);margin-bottom:0.2rem}
+.hearts-label{font-size:0.7rem;color:var(--muted);margin-bottom:1rem;letter-spacing:0.08em;text-transform:uppercase}
+.price-val{font-family:'Cinzel',serif;font-size:1.5rem;color:var(--text);margin-bottom:0.5rem}
+.eta-badge{background:rgba(126,179,255,0.1);border:1px solid rgba(126,179,255,0.2);color:var(--accent);font-size:0.7rem;padding:0.2rem 0.6rem;border-radius:50px;display:inline-block}
+
+/* FAQ */
+.faq-item{border-bottom:1px solid var(--glassborder);padding:1.2rem 0}
+.faq-q{font-size:0.95rem;font-weight:500;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--text);background:none;border:none;width:100%;text-align:left;gap:1rem}
+.faq-toggle{color:var(--gold);font-size:1.2rem;flex-shrink:0}
+.faq-a{font-size:0.85rem;color:var(--muted);line-height:1.7;padding-top:0.8rem;display:none}
+.faq-a.open{display:block}
+
+/* Features strip */
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:1rem}
+.feature{text-align:center;padding:1.5rem}
+.feature-icon{font-size:2.5rem;margin-bottom:1rem}
+.feature-title{font-size:1rem;font-weight:600;color:var(--text);margin-bottom:0.5rem}
+.feature-desc{font-size:0.85rem;color:var(--muted);line-height:1.6}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+
+<nav>
+  <a class="logo" href="index.html"><span class="candle">🕯️</span> SkyHearts</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html" class="active" data-i18n="nav_home">Home</a></li>
+    <li><a href="pricing.html" data-i18n="nav_pricing">Pricing</a></li>
+    <li><a href="dashboard.html" data-i18n="nav_dashboard">Dashboard</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-lang">
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="ru">RU</button>
+    </div>
+    <a class="nav-btn" href="order.html" data-i18n="nav_order">Order Now</a>
+    <button class="nav-hamburger" id="hamburger">☰</button>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-badge anim-up" data-i18n="hero_badge">✨ Sky: Children of the Light</div>
+      <h1 class="anim-up delay-1" data-i18n="hero_h1" data-i18n-html>Collect Hearts,<br>Ascend Together</h1>
+      <p class="anim-up delay-2" data-i18n="hero_p">The most trusted Heart gifting service for Sky. Safe, fast delivery — powered by real players, automated tracking, and Telegram updates.</p>
+      <div class="hero-btns anim-up delay-3">
+        <a class="btn-primary" href="pricing.html" data-i18n="hero_btn1">🌟 Browse Packages</a>
+        <a class="btn-secondary" href="dashboard.html" data-i18n="hero_btn2">My Orders</a>
+      </div>
+      <div class="hero-stats anim-up delay-3">
+        <div class="stat"><div class="stat-num">12,400+</div><div class="stat-label" data-i18n="stat1_label">Hearts Delivered</div></div>
+        <div class="stat"><div class="stat-num">847</div><div class="stat-label" data-i18n="stat2_label">Happy Players</div></div>
+        <div class="stat"><div class="stat-num">99.8%</div><div class="stat-label" data-i18n="stat3_label">Satisfaction</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="section">
+    <div class="features">
+      <div class="feature glass-card">
+        <div class="feature-icon">🛡️</div>
+        <div class="feature-title">100% Safe</div>
+        <div class="feature-desc">We never ask for passwords. Receiving hearts is a native game mechanic.</div>
+      </div>
+      <div class="feature glass-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">Fast Delivery</div>
+        <div class="feature-desc">Orders start within hours of payment. Track every heart in real time.</div>
+      </div>
+      <div class="feature glass-card">
+        <div class="feature-icon">📱</div>
+        <div class="feature-title">Telegram Updates</div>
+        <div class="feature-desc">Instant push notifications via @SkyHeartsBot on every milestone.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- PRICING PREVIEW -->
+  <div class="section">
+    <div class="section-title" data-i18n="packages_title">Heart Packages</div>
+    <div class="section-sub" data-i18n="packages_sub">Choose your ascension path — all prices include tracking & Telegram updates</div>
+    <div class="pricing-grid">
+      <a class="price-card" href="order.html?pkg=20">
+        <div class="hearts-amount">20</div><div class="hearts-label">❤️ Hearts</div>
+        <div class="price-val">$0.99</div><div class="eta-badge">~3 days</div>
+      </a>
+      <a class="price-card" href="order.html?pkg=50">
+        <div class="price-badge">POPULAR</div>
+        <div class="hearts-amount">50</div><div class="hearts-label">❤️ Hearts</div>
+        <div class="price-val">$1.99</div><div class="eta-badge">~3 days</div>
+      </a>
+      <a class="price-card" href="order.html?pkg=100">
+        <div class="hearts-amount">100</div><div class="hearts-label">❤️ Hearts</div>
+        <div class="price-val">$3.79</div><div class="eta-badge">~4 days</div>
+      </a>
+      <a class="price-card featured" href="order.html?pkg=250">
+        <div class="price-badge">BEST VALUE</div>
+        <div class="hearts-amount">250</div><div class="hearts-label">❤️ Hearts</div>
+        <div class="price-val">$8.49</div><div class="eta-badge">~7 days</div>
+      </a>
+    </div>
+    <div style="text-align:center;margin-top:2rem">
+      <a class="btn-primary" href="pricing.html" data-i18n="hero_btn1">🌟 Browse Packages</a>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- FAQ -->
+  <div class="section">
+    <div class="section-title" data-i18n="faq_title">Common Questions</div>
+    <div class="section-sub" data-i18n="faq_sub">Everything you need to know</div>
+    <div style="max-width:600px;margin:0 auto">
+      <div class="faq-item">
+        <button class="faq-q"><span data-i18n="faq1_q">How does heart delivery work?</span><span class="faq-toggle">+</span></button>
+        <div class="faq-a" data-i18n="faq1_a">We use real Sky player accounts to gift you hearts in-game. After payment confirmation, your order enters our queue and we start delivering within your ETA window.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span data-i18n="faq2_q">Is it safe for my account?</span><span class="faq-toggle">+</span></button>
+        <div class="faq-a" data-i18n="faq2_a">Yes — receiving hearts is a core game mechanic and completely safe. We never ask for your password.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span data-i18n="faq3_q">How do I track my order?</span><span class="faq-toggle">+</span></button>
+        <div class="faq-a" data-i18n="faq3_a">After placing your order, you'll get access to a personal dashboard with live progress tracking and Telegram push notifications.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span data-i18n="faq4_q">What payment methods do you accept?</span><span class="faq-toggle">+</span></button>
+        <div class="faq-a" data-i18n="faq4_a">We accept PayPal, credit/debit cards, and crypto. Payment is processed securely and confirmed automatically.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">🕯️ SkyHearts</div>
+    <div class="footer-links">
+      <a href="#" data-i18n="terms">Terms</a>
+      <a href="#" data-i18n="privacy">Privacy</a>
+      <a href="#" data-i18n="contact">Contact</a>
+      <a href="#" data-i18n="faq">FAQ</a>
+    </div>
+    <div class="footer-copy" data-i18n="footer_copy">© 2025 SkyHearts. Not affiliated with thatgamecompany.</div>
+  </footer>
+</div>
+
+<script src="main.js"></script>
+<script>
+  initStars();
+  initMobileNav();
+  initFaq();
+  initLang();
+</script>
+</body>
+</html>

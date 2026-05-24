@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkyHearts — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.page-wrap{padding-top:70px;padding-bottom:4rem}
+.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;padding:1.5rem;margin-bottom:0.5rem;max-width:900px;margin-left:auto;margin-right:auto}
+.stat-card{background:var(--glass);border:1px solid var(--glassborder);border-radius:14px;padding:1.2rem;display:flex;flex-direction:column;gap:0.3rem}
+.stat-card-num{font-size:1.6rem;font-weight:600}
+.stat-card-num.gold{color:var(--gold)}
+.stat-card-num.green{color:var(--green)}
+.stat-card-num.blue{color:var(--accent)}
+.stat-card-num.red{color:var(--red)}
+.stat-card-label{font-size:0.72rem;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase}
+.stat-card-trend{font-size:0.75rem;color:var(--green)}
+.admin-body{max-width:900px;margin:0 auto;padding:0 1.5rem}
+.admin-section-title{font-size:0.85rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.8rem;padding-top:0.8rem}
+.order-row{background:var(--glass);border:1px solid var(--glassborder);border-radius:12px;padding:1rem;margin-bottom:0.6rem;display:flex;flex-direction:column;gap:0.5rem}
+.order-row-top{display:flex;justify-content:space-between;align-items:center;gap:0.5rem}
+.order-client{font-size:0.9rem;font-weight:500}
+.order-meta{font-size:0.75rem;color:var(--muted)}
+.mini-prog{height:5px;background:rgba(255,255,255,0.08);border-radius:50px;overflow:hidden;margin-top:0.3rem}
+.mini-fill{height:100%;background:linear-gradient(90deg,var(--blue2),var(--gold));border-radius:50px}
+.workload-card{background:linear-gradient(135deg,rgba(20,40,100,0.4),rgba(245,200,66,0.05));border:1px solid rgba(245,200,66,0.2);border-radius:14px;padding:1.2rem;margin-bottom:1rem}
+.workload-bar{height:12px;background:rgba(255,255,255,0.08);border-radius:50px;overflow:hidden;margin:0.8rem 0 0.4rem}
+.workload-fill{height:100%;border-radius:50px;background:linear-gradient(90deg,var(--green),var(--gold),var(--red));width:73%}
+.chart-area{margin-bottom:2rem}
+.mini-chart{background:var(--glass);border:1px solid var(--glassborder);border-radius:14px;padding:1.2rem;height:120px;position:relative;overflow:hidden}
+.chart-bars{display:flex;align-items:flex-end;gap:6px;height:80px;padding-top:0.5rem}
+.chart-bar{flex:1;border-radius:4px 4px 0 0;background:linear-gradient(180deg,var(--gold),var(--blue2));opacity:0.7;transition:opacity 0.2s;cursor:pointer}
+.chart-bar:hover{opacity:1}
+.chart-label{display:flex;justify-content:space-between;font-size:0.65rem;color:var(--muted);margin-top:0.4rem}
+.dash-header{padding:2rem 1.5rem 1rem;background:linear-gradient(180deg,rgba(20,40,100,0.3),transparent)}
+.dash-title{font-family:'Cinzel',serif;font-size:1.4rem;color:var(--gold)}
+.dash-sub{color:var(--muted);font-size:0.85rem;margin-top:0.2rem}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+
+<nav>
+  <a class="logo" href="index.html"><span class="candle">🕯️</span> SkyHearts</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+    <li><a href="pricing.html" data-i18n="nav_pricing">Pricing</a></li>
+    <li><a href="dashboard.html" data-i18n="nav_dashboard">Dashboard</a></li>
+    <li><a href="admin.html" class="active" style="color:var(--red)">⚡ Admin</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-lang">
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="ru">RU</button>
+    </div>
+    <button class="nav-hamburger" id="hamburger">☰</button>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="dash-header">
+    <div class="dash-title">⚡ Admin Panel</div>
+    <div class="dash-sub">SkyHearts Operations · May 2025</div>
+  </div>
+
+  <div class="admin-grid">
+    <div class="stat-card"><div class="stat-card-num gold">2,480</div><div class="stat-card-label">Hearts Sold</div><div class="stat-card-trend">↑ +12% this week</div></div>
+    <div class="stat-card"><div class="stat-card-num green">2,190</div><div class="stat-card-label">Hearts Delivered</div><div class="stat-card-trend">↑ 88.3% delivered</div></div>
+    <div class="stat-card"><div class="stat-card-num blue">14</div><div class="stat-card-label">Active Orders</div><div class="stat-card-trend">3 in progress today</div></div>
+    <div class="stat-card"><div class="stat-card-num gold">$284</div><div class="stat-card-label">Revenue</div><div class="stat-card-trend">↑ +$47 this week</div></div>
+    <div class="stat-card"><div class="stat-card-num">847</div><div class="stat-card-label">Total Clients</div><div class="stat-card-trend">↑ +8 this month</div></div>
+    <div class="stat-card"><div class="stat-card-num red">2</div><div class="stat-card-label">Delayed Orders</div><div class="stat-card-trend">Needs attention</div></div>
+  </div>
+
+  <div class="admin-body">
+    <div class="workload-card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:0.85rem;font-weight:500">Daily Workload</div>
+        <div style="font-size:0.75rem;color:var(--gold)">73% capacity</div>
+      </div>
+      <div class="workload-bar"><div class="workload-fill"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--muted)">
+        <span>36 / 50 hearts queued today</span>
+        <span>14 remaining capacity</span>
+      </div>
+      <div style="font-size:0.75rem;color:var(--orange);margin-top:0.6rem">⚠️ Queue load: 73% — approaching limit</div>
+    </div>
+
+    <div class="admin-section-title">Active Orders</div>
+
+    <div class="order-row">
+      <div class="order-row-top">
+        <div>
+          <div class="order-client">StarChild_77 <span class="order-status status-progress" style="margin-left:0.5rem"><span class="status-dot"></span>In Progress</span></div>
+          <div class="order-meta">#SKH-4821 · 150 ❤️ · 40 delivered · Due May 25</div>
+        </div>
+        <button class="btn-secondary btn-sm" onclick="alert('Update modal')">Update</button>
+      </div>
+      <div class="mini-prog"><div class="mini-fill" style="width:26%"></div></div>
+      <div style="font-size:0.7rem;color:var(--muted)">26% · 110 hearts remaining</div>
+    </div>
+
+    <div class="order-row">
+      <div class="order-row-top">
+        <div>
+          <div class="order-client">WanderingAstral <span class="order-status status-progress" style="margin-left:0.5rem"><span class="status-dot"></span>In Progress</span></div>
+          <div class="order-meta">#SKH-4819 · 100 ❤️ · 60 delivered · Due May 24</div>
+        </div>
+        <button class="btn-secondary btn-sm" onclick="alert('Update modal')">Update</button>
+      </div>
+      <div class="mini-prog"><div class="mini-fill" style="width:60%"></div></div>
+      <div style="font-size:0.7rem;color:var(--muted)">60% · 40 hearts remaining</div>
+    </div>
+
+    <div class="order-row">
+      <div class="order-row-top">
+        <div>
+          <div class="order-client">LunaSeeker <span class="order-status status-pending" style="margin-left:0.5rem"><span class="status-dot"></span>Pending Payment</span></div>
+          <div class="order-meta">#SKH-4822 · 250 ❤️ · $8.49 · Awaiting confirmation</div>
+        </div>
+        <button class="btn-secondary btn-sm" onclick="alert('Mark as paid')">Mark Paid</button>
+      </div>
+    </div>
+
+    <div class="order-row">
+      <div class="order-row-top">
+        <div>
+          <div class="order-client">CelestialWing <span class="order-status" style="margin-left:0.5rem;background:rgba(255,107,122,0.12);color:var(--red);border:1px solid rgba(255,107,122,0.3)"><span class="status-dot"></span>Delayed</span></div>
+          <div class="order-meta">#SKH-4815 · 50 ❤️ · Overdue by 1 day</div>
+        </div>
+        <button class="btn-secondary btn-sm" onclick="alert('Notify client via Telegram')">Notify</button>
+      </div>
+    </div>
+
+    <div class="admin-section-title" style="margin-top:1.5rem">Hearts Delivered — Last 7 Days</div>
+    <div class="chart-area">
+      <div class="mini-chart">
+        <div class="chart-bars" id="chart-bars"></div>
+        <div class="chart-label"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="main.js"></script>
+<script>
+  initStars();
+  initMobileNav();
+  initLang();
+
+  // Chart
+  const days = [30,45,50,20,50,40,35];
+  const cb = document.getElementById('chart-bars');
+  if (cb) {
+    days.forEach(h => {
+      const b = document.createElement('div');
+      b.className = 'chart-bar';
+      b.style.height = (h/50*100)+'%';
+      b.title = h+' hearts';
+      cb.appendChild(b);
+    });
+  }
+</script>
+</body>
+</html>
