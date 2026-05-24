@@ -1,0 +1,122 @@
+// This is your Prisma schema file
+// Learn more at: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─── Users ───────────────────────────────────────────────────────────────────
+model User {
+  id                String    @id @default(cuid())
+  email             String    @unique
+  passwordHash      String?
+  name              String?
+  telegramId        String?   @unique
+  telegramUsername  String?
+  telegramLinked    Boolean   @default(false)
+  linkToken         String?   @unique
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  orders            Order[]
+  notifications     Notification[]
+
+  @@map("users")
+}
+
+// ─── Admins ──────────────────────────────────────────────────────────────────
+model Admin {
+  id           String    @id @default(cuid())
+  username     String    @unique
+  passwordHash String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@map("admins")
+}
+
+// ─── Orders ──────────────────────────────────────────────────────────────────
+model Order {
+  id               String        @id @default(cuid())
+  userId           String
+  user             User          @relation(fields: [userId], references: [id])
+
+  skyFriendCode    String
+  hearts           Int
+  heartsDelivered  Int           @default(0)
+  price            Decimal       @db.Decimal(10, 2)
+
+  status           OrderStatus   @default(PENDING)
+  contactMethod    ContactMethod
+  contactUsername  String
+
+  etaDays          Int
+  notes            String?
+
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  updates          OrderUpdate[]
+
+  @@map("orders")
+}
+
+// ─── Order Updates ────────────────────────────────────────────────────────────
+model OrderUpdate {
+  id          String   @id @default(cuid())
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id])
+  message     String
+  heartsAdded Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  @@map("order_updates")
+}
+
+// ─── Notifications ────────────────────────────────────────────────────────────
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  title     String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("notifications")
+}
+
+// ─── Daily Workload ──────────────────────────────────────────────────────────
+model DailyWorkload {
+  id             String   @id @default(cuid())
+  date           DateTime @unique @db.Date
+  heartsPlanned  Int      @default(0)
+  heartsDelivered Int     @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("daily_workload")
+}
+
+// ─── Enums ───────────────────────────────────────────────────────────────────
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum ContactMethod {
+  TELEGRAM
+  DISCORD
+  INSTAGRAM
+  TIKTOK
+  TWITTER
+}
